@@ -26,6 +26,13 @@ function myFunction()
 {
 alert("hello world!");
 }
+function findFriends()
+{
+	FB.api('/me/friends', function(response) 
+	{
+		console.log(response);
+	});
+}
 </script>
 
 // facebook stuff
@@ -36,7 +43,7 @@ alert("hello world!");
            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
            if (d.getElementById(id)) {return;}
            js = d.createElement('script'); js.id = id; js.async = true;
-           js.src = "//connect.facebook.net/en_US/all.js";
+           js.src = "http://connect.facebook.net/en_US/all.js";
            ref.parentNode.insertBefore(js, ref);
          }(document));
 		 
@@ -49,10 +56,13 @@ alert("hello world!");
             xfbml      : true  // parse XFBML
           });
 		  // listen for and handle auth.statusChange events
+		  
         FB.Event.subscribe('auth.statusChange', function(response) {
           if (response.authResponse) {
             // user has auth'd your app and is logged into Facebook
-            FB.api('/me', function(me){
+            alert(console.log(response));
+			findFriends();
+			FB.api('/me', function(me){
               if (me.name) {
                 document.getElementById('auth-displayname').innerHTML = me.name;
               }
@@ -65,6 +75,8 @@ alert("hello world!");
             document.getElementById('auth-loggedin').style.display = 'none';
           }
         });
+		
+		
         };
         
       </script>
